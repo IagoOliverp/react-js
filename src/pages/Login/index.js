@@ -81,6 +81,8 @@ export const Login = () => {
             
                             <form onSubmit={loginSubmit} class="form-login">
 
+                            {status.type === 'redDanger' ? <p className="alert-danger">{status.mensagem}</p> : ""}
+
                             {status.type === 'error'? <p className="alert-danger">{status.mensagem}</p> : ""}
                             {status.type === 'success'? <p className="alert-success">{status.mensagem}</p> : ""}
 
@@ -101,7 +103,7 @@ export const Login = () => {
 
                                 <div className="signup-link">
                                     <Link to="/add-user-login" className="link-pg-login">Cadastre-se</Link>{" - "}
-                                    <Link to="/recover-password" className="link-pg-login">Esqueceu a Senha</Link>
+                                    <Link to="/recover-password" className="link-pg-login">Esqueci a Senha</Link>
                                 </div>
                                 </form>
                                 

@@ -1,14 +1,18 @@
 import React from 'react';
 
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
  
 export const Dashboard = () => {
 
     return (
         <div>
-            <Menu />
-
-            <h1>Dashboard</h1>
+            <Navbar />
+            <div className="content">
+                <Sidebar />
+                <h1>Dashboard</h1>
+            </div>
+            
         </div>
     );
 }

@@ -108,24 +108,39 @@ export const UpdatePassword = (props) => {
     }
 
     return (
-        <div>
-            <h1>Editar a Senha</h1>
+        <div className="d-flex">
+            <div className="container-login">
+                <div className="wrapper-login">
+                    <div className="title">
+                        <span>Editar a Senha</span>
+                    </div>
+
+            <form onSubmit={updatePassword} className="form-login">
 
             {status.type === 'redDanger' ? <Navigate to={"/"} state={mensagemAdd}/> : ""}
             {status.type === 'redSuccess' ? <Navigate to={"/"} state={mensagemAdd2}/> : ""}
-            {status.type === 'error' ? <Navigate to={"/"} state={mensagemAdd}/> : ""}
+            {/*status.type === 'error' ? <Navigate to={"/"} state={mensagemAdd}/> : ""*/}
+            {/*status.type === 'error'? <p className="alert-danger">{status.mensagem}</p> : ""*/}
             {status.type === 'success' ? <p style={{ color: "green" }}>{status.mensagem}</p> : ""}
 
-            <form onSubmit={updatePassword}>
-
-                <label>Senha:* </label>
-                <input type="password" name="password" placeholder="Digite a sua Senha" autoComplete="on" onChange={text => setPassword(text.target.value)}></input><br />
-
-                <p>*Campo obrigatório</p>
+                <div className="row">
+                    <i className="fas fa-lock"></i>
+                    <input type="password" name="password" placeholder="Digite a sua Senha" autoComplete="on" onChange={text => setPassword(text.target.value)}></input><br />
+                </div>
+            
+                <p>*Campo obrigatório</p><br />
                 
-                <button type="submit">Salvar</button><br /><br />
-                Lembrou a Senha? <Link to="/">Clique aqui</Link>
+                <div className="row button">
+                    <button type="submit" className="button-login">Salvar</button><br /><br />
+                </div>
+                
+                <div className="signup-link">
+                Lembrou a Senha? <Link to="/" className="link-pg-login">Clique aqui</Link>
+                </div>
+                
             </form>
+            </div>
+            </div>
         </div>
     );
 }

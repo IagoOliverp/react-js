@@ -68,27 +68,45 @@ export const AddUserLogin = () => {
 
    
     return (//Formulário de login do usuário
-        <div>
-            <h1>Cadastrar Usuário</h1> 
+        <div className="d-flex">
+            <div className="container-login">
+                <div className="wrapper-login">
+
+            <div className="title"   >
+                <span>Cadastrar Usuário</span> 
+            </div>
             
-            {status.type === 'error'? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : " "}
+            <form onSubmit={addUser} className="form-login">
+
+            {status.type === 'error'? <p className="alert-danger">{status.mensagem}</p> : ""}
             {status.type === 'success'? <Navigate to="/" state={mensagemAdd} />: ""}
-            
-            <form onSubmit={addUser}>
-                <label>Nome:* </label>
+
+            <div className="row">
+            <i className="fas fa-user"></i>
                 <input type="text" name="name" placeholder="Digite o seu Nome" onChange={valueInput}></input><br /><br />
-
-                <label>E-mail:* </label>
+            </div>
+            <div className="row">
+                <i className="fas fa-envelope"></i>
                 <input type="email" name="email" placeholder="Digite o seu E-mail" autoComplete="on" onChange={valueInput}></input><br /><br />
-
-                <label>Senha:* </label>
+            </div>
+            <div className="row">
+            <i className="fas fa-lock"></i>
                 <input type="password" name="password" placeholder="Digite a sua Senha" autoComplete="on" onChange={valueInput}></input><br /><br />
-
-                <p>*Campo obrigatório</p>
+            </div>
                 
-                <button type="submit">Cadastrar</button><br /><br />
-                <Link to="/">Acessar</Link>
+            <p>*Campo obrigatório</p><br />
+                
+                <div className="row button">
+                    <button type="submit" className="button-login">Cadastrar</button><br /><br />
+                </div>
+                
+                <div className="signup-link">
+                    Voltar para o Login? - <Link to="/" className="link-pg-login">Clique aqui</Link>
+                </div>
+                
             </form>
+                </div>
+            </div>
         </div>
     );
 };
