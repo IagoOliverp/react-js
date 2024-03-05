@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import { Navigate, useParams, Link} from 'react-router-dom';
 import api from '../../config/configApi';
 import { servDeleteUser } from '../../services/ServDeleteUser';
@@ -124,33 +125,48 @@ useEffect(() => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
 
-            <h1>Editar Foto do Perfil</h1>
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Foto do Usuário</span>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-            <Link to="#"><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>{" "}
-            <hr />
+                            <div class="top-content-adm-right">  
+                                <Link to="/users"><button type="button" className="btn-primary">Listar</button></Link>{" "}
+                                <Link to={"/view-user/" + id}><button type="button" className="btn-info">Visualizar</button></Link>{" "}
+                            </div>
+                        </div>
 
-            {status.type === 'redSuccess' ? <Navigate to= {"/view-user/" + id} state={mensagemAdd}/> : ""}
-            {status.type === 'redWarning' ? <Navigate to= "/users" state={mensagemAdd2}/>: ""}
-            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            
+                        <div className="alert-content-adm">
+                            {status.type === 'redSuccess' ? <Navigate to= {"/view-user/" + id} state={mensagemAdd}/> : ""}   
+                            {status.type === 'redWarning' ? <Navigate to= "/users" state={mensagemAdd2}/>: ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            <form onSubmit={EditUser}>
-                <label>Imagem*: </label>
-                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])}/><br /><br />
+                        <div className="content-adm">
 
-                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150" /> 
-                    : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}<br /><br />
+                            <form onSubmit={EditUser}>
+                                {image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
+                                : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}<br /><br />
 
-                    * Campo obrigatório<br /><br />
-                    <button type="submit">Salvar</button>
+                                <label>Imagem: </label><br /><br />
+                                <input type="file" name="image" onChange={e => setImage(e.target.files[0])}/><br /><br />
 
-            </form>
-            
+                                {/*image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
+                                : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>*/}
 
+                                * Campo obrigatório<br /><br />
+                                <button type="submit" className="btn-success">Salvar</button>{" "}
+                                <button type="button" onClick={() => deleteUser(id)} className="btn-danger">Apagar</button>
+
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

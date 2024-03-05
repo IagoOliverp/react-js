@@ -76,7 +76,7 @@ export const Login = () => {
             <div className="container-login">
                 <div className="wrapper-login">
                     <div className="title">
-                        <span>Área Restrita</span> 
+                        <span>Login</span> 
                     </div>
             
                             <form onSubmit={loginSubmit} class="form-login">

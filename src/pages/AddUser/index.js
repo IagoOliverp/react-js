@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import {Menu}  from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 /*import * as yup from 'yup';*/
 import { Link, Navigate } from 'react-router-dom';
@@ -23,11 +24,11 @@ export const Adduser = () => {
         e.preventDefault();
 
          const headers = {
-            'headers': {
+                'headers': {
                 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + localStorage.getItem('token')
             }
-        };
+        }
 
         if(!(await validate())) return;
 
@@ -53,9 +54,9 @@ export const Adduser = () => {
     }
 
     function validate(){
-        if(!user.name) return setStatus({type: 'error', mensagem: 'Erro: necessário preencher o campo 1!'});
-        if(!user.email) return setStatus({type: 'error', mensagem: 'Erro: necessário preencher o e-mail 1!'});
-        if(!user.password) return setStatus({type: 'error', mensagem: 'Erro: necessário preencher o senha 1!'})
+        if(!user.name) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo nome!'});
+        if(!user.email) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo e-mail!'});
+        if(!user.password) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo senha!'})
         if(user.password.lengh < 6 ) return setStatus({type: 'error', mensagem: 'Erro: A senha deve ter no mínimo 6 caracteres!'})
 
         return true;
@@ -90,29 +91,57 @@ export const Adduser = () => {
 
     return (
         <div>
-            <Menu />
+        <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
 
-            <h1>Cadastrar usuário</h1>
-            <Link to="/users"><button type="button">Listar</button></Link><br /><hr/>
-           
-            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            {status.type === 'success' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
-            
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Cadastrar Usuário</span>
+                            <div class="top-content-adm-right">
+                            <Link to="/users"><button type="button" class="btn-primary">Listar</button></Link>
+                                
+                            </div>
+                        </div>
 
-            <form onSubmit={addUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome Completo do Usuário" onChange={valueInput}/><br /><br />
+                        <div className="alert-content-adm">
+                            {status.type === "success" ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="Email do Usuário" onChange={valueInput}/><br /><br />
+                        <div className="content-adm">
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha do Usuário" autoComplete="on" onChange={valueInput}/><br /><br />
+                            <form onSubmit={addUser} className="form-adm">
 
-                * Campo obrigatório <br /><br />
+                                <div className="row-input">
+                                    <div className="column">
+                                        <label className="title-input">Nome</label>
+                                        <input type="text" name="name" id="name" className="input-adm" placeholder="Nome completo do usuário" onChange={valueInput} />
+                                    </div>
+                                </div>
 
-                <button type="submit">Cadastrar</button>
-            </form>
+                                <div className="row-input">
+                                    <div className="column">
+                                        <label className="title-input">E-mail</label>
+                                        <input type="email" name="email" id="email" className="input-adm" placeholder="Melhor e-mail" onChange={valueInput}/>
+                                    </div>
+
+                                    <div class="column">
+                                        <label className="title-input">Senha</label>
+                                        <input type="password" name="password" id="password" className="input-adm" placeholder="Senha de acesso ao sistema" autoComplete="on" onChange={valueInput}/>
+                                    </div>
+
+                                </div>
+
+                                <button type="submit" className="btn-success">Cadastrar</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };

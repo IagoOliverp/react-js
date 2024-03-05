@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import { Navigate } from 'react-router-dom';
 import api from '../../config/configApi';
+import { Link } from 'react-router-dom';
 
 export const EditProfileImage = () => {
 
@@ -31,7 +33,7 @@ export const EditProfileImage = () => {
 
         await api.put("/edit-profile-image", formData, headers)
         .then((response) => {
-            //localStorage.setItem('image', response.data.image)
+            localStorage.setItem('image', response.data.image)
             setStatus({
                 type: 'redSuccess',
                 mensagem: response.data.mensagem
@@ -96,28 +98,44 @@ export const EditProfileImage = () => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
 
-            <h1>Editar Foto do Perfil</h1>
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Foto do Perfil</span>
+                            <div class="top-content-adm-right">  
+                                <Link to="/view-profile"><button type="button" className="btn-info">Perfil</button></Link>{" "}
+                            </div>
+                        </div>
 
-            {status.type === 'redSuccess' ? <Navigate to= "/view-profile" state={mensagemAdd}/> : ""}
-            {status.type === 'error' ? <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'redSuccess' ? <Navigate to= "/view-profile" state={mensagemAdd}/> : ""}   
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            <form onSubmit={EditUser}>
-                <label>Imagem*: </label>
-                    <input type="file" name="image" onChange={e => setImage(e.target.files[0])}/><br /><br />
+                        <div className="content-adm">
 
-                    {image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
-                    : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}<br /><br />
+                            <form onSubmit={EditUser}>
+                                {image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
+                                : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}<br /><br />
 
-                    {/*image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
-                    : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>*/}<br /><br />
+                                <label>Imagem*: </label><br /><br />
+                                <input type="file" name="image" onChange={e => setImage(e.target.files[0])}/><br /><br />
 
-                    * Campo obrigatório<br /><br />
-                    <button type="submit">Salvar</button>
+                                {/*image ? <img src={URL.createObjectURL(image)} alt="Imagem do Usuário" width="150" height="150"/> 
+                                : <img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>*/}
 
-            </form>
+                                * Campo obrigatório<br /><br />
+                                <button type="submit" className="btn-success">Salvar</button>
 
+                             </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

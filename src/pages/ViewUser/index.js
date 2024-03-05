@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-
 import { Link, useParams, Navigate, useLocation } from 'react-router-dom';
-
 import { servDeleteUser } from '../../services/ServDeleteUser';
-
-import { Menu } from '../../components/Menu';
-
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 
 export const Viewuser = (props) => {
@@ -103,25 +100,47 @@ export const Viewuser = (props) => {
 
     return (
         <div>
-            <Menu />
-            <h1>Detalhes do Usuário</h1>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/edit-user/" + data.id}><button type="button">Editar</button></Link>{" "}
-            <Link to={"/edit-user-password/" + data.id}><button type="button">Editar Senha</button></Link>{" "}
-            <Link to={"/edit-user-image/" + id}><button type="button">Editar Imagem</button></Link>{" "}
-            <Link to={"#"}><button type="button" onClick={() => deleteUser(data.id)}>Apagar</button></Link>
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Detalhes do Usuário</span>
+                            <div class="top-content-adm-right">
+                            <Link to={"/edit-user/" + data.id}><button type="button" className="btn-warning">Editar</button></Link>{" "}
+                            <Link to={"/edit-user-password/" + data.id}><button type="button" className="btn-warning">Editar Senha</button></Link>{" "}
+                            <Link to={"/edit-user-image/" + id}><button type="button" className="btn-warning">Editar Imagem</button></Link>{" "}
+                            <Link to="/users"><button type="button" className="btn-primary">Listar</button></Link>{" "}
+                            </div>
+                        </div>
 
-            <hr />
+                        <div className="alert-content-adm">
+                            {status.type === 'redSuccess' ? <Navigate to="/users" state={mensagemAdd}/> : ""}   
+                            {status.type === 'redError' ? <Navigate to="/users" state={mensagemAdd2}/> : ""}
+                        </div>
 
-            {status.type === 'redSuccess' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
-            {status.type === 'redError' ? <Navigate to="/users" state={mensagemAdd2}/> : ""}
-            {status.type === "success" ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
+                        <div className="content-adm">
+                            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}</span><br />
+                            <div className="view-desc-adm">
+                                <span className="title-desc">ID: </span>
+                                <span className="info-desc">{data.id}</span>
+                            </div>
+                            <div className="view-desc-adm">
+                                <span className="title-desc">Nome: </span>
+                                <span className="info-desc">{data.name}</span>
+                            </div>
+                            <div className="view-desc-adm">
+                                <span className="title-desc">E-mail: </span>
+                                <span className="info-desc">{data.email}</span>
+                            </div>
+                            <button type="button" onClick={() => deleteUser(data.id)} className="btn-danger">Apagar</button>
+                        </div>
 
-            <span>{data.id}</span><br />
-            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}</span><br />
-            <span>{data.name}</span><br />
-            <span>{data.email}</span>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };

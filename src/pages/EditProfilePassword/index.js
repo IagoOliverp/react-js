@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 import * as yup from 'yup';
 import { Navigate } from 'react-router-dom';
@@ -127,30 +128,50 @@ export const EditProfilePassword = () => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar />
 
-            <h1>Editar Senha</h1>
+                <div className="wrapper">
+                    <div className="row">
+                        <div className="top-content-adm">
+                            <span className="title-content" >Editar senha do Perfil</span>
+                            <div className="top-content-adm-right">
 
-            <Link to="/view-profile"><button type="button">Perfil</button></Link>{" "}
+                            <Link to="/view-profile"><button type="button" className="btn-info">Perfil</button></Link>{" "}
+                           
+                            </div>
+                        </div>
 
-            {status.type === 'redWarning' ? <Navigate to="/login" state={mensagemAdd}/> : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                            {status.type === "redSuccess" ? <Navigate to="/view-profile" state={mensagemAdd2}/> : ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            {status.type === 'redSuccess' ?  <Navigate to="/view-profile" state={mensagemAdd2}/> : ""}
+                        <div className="content-adm">
 
-            {status.type === 'error' ?  <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            <hr />
-            <form onSubmit={EditUser}>
+                            <form onSubmit={EditUser} className="form-adm">
 
-                <label>Nome: {name}</label><br />
-                <label>E-mail: {email}</label><br /><br />
+                                <label>Nome: {name}</label><br /><br />
+                                <label>E-mail: {email}</label><br /><br />
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha do Usuário" autoComplete="on" onChange={text => setPassword(text.target.value)}/><br /><br />
-                
-                ( * )  Campo obrigatório<br /><br />
-                
-                <button type="submit">Salvar</button>
-            </form>
+                                <div className="row-input">
+                                    <div className="column">
+                                        <label className="title-input">Senha*</label>
+                                        <input type="password" name="password" id="password" className="input-adm" placeholder="Senha do usuário" onChange={text => setPassword(text.target.value)}/>
+                                    </div>
+                                </div>
+
+                                ( * )  Campo obrigatório<br /><br />
+
+                                <button type="submit" className="btn-success">Salvar</button>{" "}
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

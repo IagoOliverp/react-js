@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 import { useParams, Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
@@ -8,7 +9,6 @@ import { servDeleteUser } from '../../services/ServDeleteUser';
 export const EditUser = (props) => {
 
     const {id} = useParams()
-
     const [name, setName] = useState("")
     const [email, setEmail] = useState("")
 
@@ -136,31 +136,61 @@ export const EditUser = (props) => {
 
     return (
         <div>
-            <Menu />
+        <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
+                <div className="wrapper">
+                    <div className="row">
+                        <div className="top-content-adm">
+                            <span className="title-content">Editar Usuário</span>
+                            <div className="top-content-adm-right">
 
-            <h1>Editar Usuário</h1>
+                            <Link to="/users"><button type="button" className="btn-primary">Listar</button></Link>{" "}
+                            <Link to={"/view-user/" + id}><button type="button" className="btn-info">Visualizar</button></Link>{" "}
+                                
+                            </div>
+                        </div>
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-            <Link to="#"><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>{" "}
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                            {status.type === "redSuccess" ? <Navigate to="/users" state={mensagemAdd2}/> : ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            {status.type === 'redWarning' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                        <div className="content-adm">
 
-            {status.type === 'redSuccess' ?  <Navigate to="/users" state={mensagemAdd2}/> : ""}
+                            <form onSubmit={EditUser} className="form-adm">
 
-            {status.type === 'error' ?  <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            <hr />
-            <form onSubmit={EditUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)}/><br /><br />
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="E-mail do usuário" value={email} onChange={text => setEmail(text.target.value)}/><br /><br />
-                
-                ( * )  Campo obrigatório<br /><br />
-                
-                
-                <button type="submit">Salvar</button>
-            </form>
+                                <div className="row-input">
+
+                                    <div className="column">
+                                        <label className="title-input">Nome*</label>
+                                        <input type="text" name="name" id="name" className="input-adm" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)}/>
+                                    </div>
+
+                                </div>
+
+                                <div className="row-input">
+
+                                    <div className="column">
+                                        <label className="title-input">E-mail*</label>
+                                        <input type="email" name="email" id="email" className="input-adm" placeholder="Melhor e-mail" value={email} onChange={text => setEmail(text.target.value)}/>
+                                    </div>
+
+                                </div>
+                                
+                                ( * )  Campo obrigatório<br /><br />
+
+                                <button type="submit" className="btn-success">Salvar</button>{" "}
+                                <button type="button" onClick={() => deleteUser(id)} className="btn-danger">Apagar</button>
+
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
         </div>
     )
 }

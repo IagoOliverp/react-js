@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 import { Navigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
+
 
 export const EditProfile = () => {
 
@@ -112,29 +114,55 @@ export const EditProfile = () => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="profile"/>
 
-            <h1>Editar Perfil</h1>
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Editar Perfil</span>
+                            <div class="top-content-adm-right">
 
-            <Link to="/view-profile"><button type="button">Perfil</button></Link>{" "}
+                            <Link to="/view-profile"><button type="button" className="btn-info">Perfil</button></Link>{" "}
+                        
+                            </div>
+                        </div>
 
-            {status.type === 'redWarning' ? <Navigate to="/login" state={mensagemAdd}/> : ""}
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ? <Navigate to="/login" state={mensagemAdd}/> : ""}
+                            {status.type === "redSuccess" ? <Navigate to="/view-profile" state={mensagemAdd2}/> : ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            {status.type === 'redSuccess' ?  <Navigate to="/view-profile" state={mensagemAdd2}/> : ""}
+                        <div className="content-adm">
 
-            {status.type === 'error' ?  <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            <hr />
-            <form onSubmit={EditUser}>
-                <label>Nome*: </label>
-                <input type="text" name="name" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)}/><br /><br />
-                <label>E-mail*: </label>
-                <input type="email" name="email" placeholder="E-mail do usuário" value={email} onChange={text => setEmail(text.target.value)}/><br /><br />
-                
-                ( * )  Campo obrigatório<br /><br />
-                
-                
-                <button type="submit">Salvar</button>
-            </form>
+                            <form onSubmit={EditUser} className="form-adm">
+
+                                <div className="row-input">
+                                    <div className="column">
+                                        <label className="title-input">Nome*</label>
+                                        <input type="text" name="name" id="name" className="input-adm" placeholder="Nome completo do usuário" value={name} onChange={text => setName(text.target.value)}/>
+                                    </div>
+                                </div>
+
+                                <div className="row-input">
+                                    <div className="column">
+                                        <label className="title-input">E-mail*</label>
+                                        <input type="email" name="email" id="email" className="input-adm" placeholder="Melhor e-mail" value={email} onChange={text => setName(text.target.value)}/>
+                                    </div>
+                                </div>
+                                
+                                ( * )  Campo obrigatório<br /><br />
+
+                                <button type="submit" className="btn-success">Salvar</button>{" "}
+
+                            </form>
+                            
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

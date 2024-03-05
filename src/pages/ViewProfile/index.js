@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link, Navigate, useLocation } from 'react-router-dom';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
+
 
 export const ViewProfile = () => {
 
@@ -69,22 +71,48 @@ export const ViewProfile = () => {
 
     return (
         <div>
-            <Menu />
-            
-            <h1>Perfil</h1>
-            <Link to="/edit-profile"><button type="button">Editar</button></Link>{" "}
-            <Link to="/edit-profile-password"><button type="button">Editar Senha</button></Link>{" "}
-            <Link to="/edit-profile-image"><button type="button">Editar Imagem</button></Link>
+            <Navbar />
+            <div className="content">
+                <Sidebar active="profile"/>
 
-            <hr />
+                <div class="wrapper">
+                    <div class="row">
+                        <div class="top-content-adm">
+                            <span class="title-content">Perfil</span>
+                            <div class="top-content-adm-right">
 
-            {status.type === 'redError' ? <Navigate to="/login" state={mensagemAdd}/> : ""}
-            {status.type === "success" ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
+                            <Link to="/edit-profile"><button type="button" className="btn-warning">Editar</button></Link>{" "}
+                            <Link to="/edit-profile-password"><button type="button" className="btn-warning">Editar Senha</button></Link>{" "}
+                            <Link to="/edit-profile-image"><button type="button" className="btn-warning">Editar Imagem</button></Link>{" "}
+                            <Link to={"/view-user/" + data.id}><button type="button" className="btn-info">Visualizar</button></Link>{" "}
+                            <Link to="/users"><button type="button" className="btn-primary">Listar</button></Link>{" "}
+                            </div>
+                        </div>
 
-            <span>{data.id}</span><br />
-            <span>{<img src={endImg} alt="Imagem do Usuário" width="150" height="150"/>}</span><br />
-            <span>{data.name}</span><br />
-            <span>{data.email}</span>
+                        <div className="alert-content-adm">
+                            {status.type === 'redError' ? <Navigate to="/login" state={mensagemAdd}/> : ""}
+                            {status.type === "success" ? <p style={{color: "green"}}>{status.mensagem}</p> : ""}
+                        </div>
+
+                        <div className="content-adm">
+                            <span><img src={endImg} alt="Imagem do Usuário" width="150" height="150"/></span><br />
+                            <div className="view-desc-adm">
+                                <span className="title-desc">ID: </span>
+                                <span className="info-desc">{data.id}</span>
+                            </div>
+                            <div className="view-desc-adm">
+                                <span className="title-desc">Nome: </span>
+                                <span className="info-desc">{data.name}</span>
+                            </div>
+                            <div className="view-desc-adm">
+                                <span className="title-desc">E-mail: </span>
+                                <span className="info-desc">{data.email}</span>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
         </div>
     )
 };

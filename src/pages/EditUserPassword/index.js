@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Menu } from '../../components/Menu';
+import { Navbar } from '../../components/Navbar';
+import { Sidebar } from '../../components/Sidebar';
 import api from '../../config/configApi';
 import * as yup from 'yup';
 import { useParams, Navigate } from 'react-router-dom';
@@ -103,7 +104,7 @@ export const EditUserPassword = (props) => {
 
     async function validate() {
         let schema = yup.object().shape({
-            password: yup.string("Erro: Necessário preencher o campo senha!").required("Erro: Necessário preencher o campo 4!").min(6, "Erro: A senha deve ter no mínimo 6 caracteres!")
+            password: yup.string("Erro: Necessário preencher o campo senha!").required("Erro: Necessário preencher o campo senha!").min(6, "Erro: A senha deve ter no mínimo 6 caracteres!")
         })
 
         try {
@@ -153,32 +154,61 @@ export const EditUserPassword = (props) => {
 
     return (
         <div>
-            <Menu />
+            <Navbar />
+            <div className="content">
+                <Sidebar active="users"/>
+        
+                <div className="wrapper">
+                    <div className="row">
+                        <div className="top-content-adm">
+                            <span className="title-content" >Editar senha do Usuário</span>
+                            <div className="top-content-adm-right">
 
-            <h1>Editar Usuário</h1>
+                            <Link to="/users"><button type="button" className="btn-primary">Listar</button></Link>{" "}
+                            <Link to={"/view-user/" + id}><button type="button" className="btn-info">Visualizar</button></Link>{" "}
+    
+                            </div>
+                        </div>
+                        
 
-            <Link to="/users"><button type="button">Listar</button></Link>{" "}
-            <Link to={"/view-user/" + id}><button type="button">Visualizar</button></Link>{" "}
-            <Link to="#"><button type="button" onClick={() => deleteUser(id)}>Apagar</button></Link>
+                        <div className="alert-content-adm">
+                            {status.type === 'redWarning' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                            {status.type === "redSuccess" ? <Navigate to="/users" state={mensagemAdd2}/> : ""}
+                            {status.type === "error" ? <p className="alert-danger">{status.mensagem}</p> : ""}
+                        </div>
 
-            {status.type === 'redWarning' ? <Navigate to="/users" state={mensagemAdd}/> : ""}
+                        <div className="content-adm">
 
-            {status.type === 'redSuccess' ?  <Navigate to="/users" state={mensagemAdd2}/> : ""}
+                            <form onSubmit={EditUser} className="form-adm">
 
-            {status.type === 'error' ?  <p style={{color: "#ff0000"}}>{status.mensagem}</p> : ""}
-            <hr />
-            <form onSubmit={EditUser}>
+                                <div className="view-desc-adm">
+                                    <span className="title-desc">Nome: </span>
+                                    <span className="info-desc">{name}</span>
+                                </div>
+                                <div className="view-desc-adm">
+                                    <span className="title-desc">E-mail: </span>
+                                    <span className="info-desc">{email}</span>
+                                </div>
 
-                <label>Nome: {name}</label><br />
-                <label>E-mail: {email}</label><br /><br />
+                                <div className="row-input">
 
-                <label>Senha*: </label>
-                <input type="password" name="password" placeholder="Senha do Usuário" autoComplete="on" onChange={text => setPassword(text.target.value)}/><br /><br />
-                
-                ( * )  Campo obrigatório<br /><br />
-                
-                <button type="submit">Salvar</button>
-            </form>
+                                    <div className="column">
+                                        <label className="title-input">Senha*</label>
+                                        <input type="password" name="password" id="password" className="input-adm" placeholder="Senha do usuário" onChange={text => setPassword(text.target.value)}/>
+                                    </div>
+
+                                </div>
+
+                                ( * )  Campo obrigatório<br /><br />
+
+                                <button type="submit" className="btn-success">Salvar</button>{" "}
+                                <button type="button" onClick={() => deleteUser(id)} className="btn-danger">Apagar</button>
+
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }
