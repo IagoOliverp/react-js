@@ -29,7 +29,7 @@ export const AddUserLogin = () => {
             }
         };
 
-        await api.post("/update-password", user, headers)
+        await api.post("/add-user-login", user, headers)
             .then((response) => {
                 setStatus({
                     type: 'success',
