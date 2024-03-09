@@ -16,6 +16,8 @@ import { RecoverPassword} from '../pages/RecoverPassword';
 import { UpdatePassword } from '../pages/UpdatePassword';
 import { EditProfileImage} from '../pages/EditProfileImage';
 import { EditUserImage } from '../pages/EditUserImage';
+import { Addticket } from '../pages/AddTicket';
+import { ListTickets } from '../pages/ListTickets';
 
 function CustomRoute({children, redirectTo}) {
     
@@ -42,6 +44,8 @@ export default function RoutesAdm() {
             <Route path="/update-password/:key" element = {<UpdatePassword/>}/>
             <Route path="/edit-profile-image" element = {<CustomRoute redirectTo="/"><EditProfileImage/></CustomRoute>}/>
             <Route path="/edit-user-image/:id" element = {<CustomRoute redirectTo="/"><EditUserImage/></CustomRoute>}/>
+            <Route path="/add-ticket" element= {<CustomRoute redirectTo="/"><Addticket/></CustomRoute>}/>
+            <Route path="/list-tickets" element= {<CustomRoute redirectTo="/"><ListTickets/></CustomRoute>}/>
         </Routes>
     );
 };

@@ -60,19 +60,19 @@ export const Dashboard = () => {
                 <div className="box box-second">
                     <span className="fas fa-truck-loading"></span>
                     <span>43</span>
-                    <span>Entregas</span>
+                    <span>Chamados novos</span>
                 </div>
 
                 <div className="box box-third">
                     <span className="fas fa-check-circle"></span>
                     <span>12</span>
-                    <span>Completas</span>
+                    <span>Chamados Pendentes</span>
                 </div>
 
                 <div className="box box-fourth">
                     <span className="fas fa-exclamation-triangle"></span>
                     <span>3</span>
-                    <span>Alertas</span>
+                    <span>Chamados Encerrados</span>
                 </div>
             </div>
         </div>
