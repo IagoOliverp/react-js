@@ -12,7 +12,6 @@ export const ListTickets = () => {
         mensagem: state ? state.mensagem : ""
     })
 
-
     return (
         <div>
             <div className="alert-content-adm">

@@ -1,6 +1,6 @@
 import React, { useEffect, useState }from "react";
-import { Link, Navigate } from "react-router-dom";
 import { Navbar } from "../../components/Navbar";
+import {Link, Navigate} from 'react-router-dom';
 import { Sidebar } from "../../components/Sidebar";
 import api from "../../config/configApi";
 
@@ -11,10 +11,9 @@ export const Addticket = () => {
         mensagem: ''
     });
 
-    const [name, setName] = useState('')
-
     const [ticket, setTicket] = useState({
-        nome_solicitante: '',
+        id_usuario: '',
+        nome_usuario: '',
         contato_celular: '',
         email: '',
         localizacao: '',
@@ -25,17 +24,31 @@ export const Addticket = () => {
         prioridade: '',
     })
 
-    useEffect(() => { 
-        const Nameprofile = () => {
+    useEffect(() => {
+        const idUsuario = async () => {
 
-            const requerente = localStorage.getItem('name');
+            const headers = {
+                'headers': {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            }
+            
+            await api.get("/get-user-profile-name", headers)
 
-            setName(requerente)
-
-            console.log(requerente)
-
-        } 
-        Nameprofile();
+            .then((response) => {
+                setTicket({
+                    id_usuario: response.data.id,
+                    nome_usuario: response.data.mensagem
+                })
+            }).catch((err) => {
+                setStatus({
+                    type: "error",
+                    mensagem: err.response.data.mensagem
+                })
+            })
+        }
+        idUsuario()
     }, [])
 
     const valueInput = e => setTicket({...ticket, [e.target.name]: e.target.value});
@@ -100,8 +113,15 @@ export const Addticket = () => {
 
                         <div className="row-input">
                             <div className="column">
-                                <label className="title-adm">Requerente: </label>
-                                <input id="nome_solicitante" name="nome_solicitante" type="text" className="input-adm" value={name} onChange={valueInput}/>
+                                <span className="title-desc">Id Usuario: </span>
+                                <span className="info-desc">{ticket.id_usuario}</span>
+                            </div>
+                        </div>
+
+                        <div className="row-input">
+                            <div className="column">
+                                <span className="title-desc">Nome Usuário: </span>
+                                <span className="info-desc">{ticket.nome_usuario}</span>
                             </div>
                         </div>
 
@@ -169,7 +189,6 @@ export const Addticket = () => {
                         </form>
 
                     </div>
-
                     </div>
 
                 </div>
