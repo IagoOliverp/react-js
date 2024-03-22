@@ -18,6 +18,10 @@ import { EditProfileImage} from '../pages/EditProfileImage';
 import { EditUserImage } from '../pages/EditUserImage';
 import { Addticket } from '../pages/AddTicket';
 import { ListTickets } from '../pages/ListTickets';
+import { ViewTicket } from '../pages/ViewTicket';
+import { ListNewTickets } from '../pages/ListNewTickets';
+import { ListPgsTickets } from '../pages/ListPgsTickets';
+import { ListEndTickets } from '../pages/ListEndTickets';
 
 function CustomRoute({children, redirectTo}) {
     
@@ -46,6 +50,10 @@ export default function RoutesAdm() {
             <Route path="/edit-user-image/:id" element = {<CustomRoute redirectTo="/"><EditUserImage/></CustomRoute>}/>
             <Route path="/add-ticket" element= {<CustomRoute redirectTo="/"><Addticket/></CustomRoute>}/>
             <Route path="/list-tickets" element= {<CustomRoute redirectTo="/"><ListTickets/></CustomRoute>}/>
+            <Route path="/view-ticket/:id" element= {<CustomRoute redirectTo="/"><ViewTicket/></CustomRoute>}/>
+            <Route path="/list-new-tickets" element= {<CustomRoute redirectTo="/"><ListNewTickets/></CustomRoute>}/>
+            <Route path="/list-pgs-tickets" element= {<CustomRoute redirectTo="/"><ListPgsTickets/></CustomRoute>}/>
+            <Route path="/list-end-tickets" element= {<CustomRoute redirectTo="/"><ListEndTickets/></CustomRoute>}/>
         </Routes>
     );
 };

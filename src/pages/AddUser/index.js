@@ -7,6 +7,7 @@ import { Link, Navigate } from 'react-router-dom';
 
 export const Adduser = () => {
 
+
     const [user, setUser] = useState({
         name: '',
         email: '',
@@ -56,7 +57,7 @@ export const Adduser = () => {
     function validate(){
         if(!user.name) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo nome!'});
         if(!user.email) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo e-mail!'});
-        if(!user.password) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo senha!'})
+        if(!user.password) return setStatus({type: 'error', mensagem: 'Erro: Necessário preencher o campo senha!'});
         if(user.password.lengh < 6 ) return setStatus({type: 'error', mensagem: 'Erro: A senha deve ter no mínimo 6 caracteres!'})
 
         return true;
@@ -93,7 +94,7 @@ export const Adduser = () => {
         <div>
         <Navbar />
             <div className="content">
-                <Sidebar active="users"/>
+                <Sidebar active="users" />
 
                 <div class="wrapper">
                     <div class="row">

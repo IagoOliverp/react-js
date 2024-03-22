@@ -340,7 +340,7 @@ body {
   position: sticky;
   background-color: var(--main-bg-color);
   box-shadow: 0 1px 4px 1px rgba(0, 0, 0, 0.12);
-  top: 60px;
+  top: 50px;
   overflow: auto;
   overflow-x: hidden;
   transition: 0.3s width ease-in-out;
@@ -469,7 +469,7 @@ body {
 }
 
 .row .box-fourth {
-  background: var(--danger-color);
+  background: var(--fifth-color);
 }
 
 .box span {
@@ -539,6 +539,32 @@ body {
   padding: 8px;
 }
 
+.status-null {
+  color: var(--fifth-color);
+  text-align: center;
+}
+
+.status-new {
+  background-color: #47a447;
+  color: var(--fourth-color);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.status-working {
+  background-color: #ffbb00;
+  color: var(--fourth-color);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.status-finished {
+  background-color: #000000;
+  color: var(--fourth-color);
+  border-radius: 8px;
+  text-align: center;
+}
+
 @media (max-width: 540px) {
   .table-sm-none {
       display: none;
@@ -560,6 +586,15 @@ body {
 @media (max-width: 1140px) {
   .table-xl-none {
       display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .navbar {
+      width: 840px
+  }
+  .wrapper .row {
+    width: 800px;
   }
 }
 
@@ -669,6 +704,7 @@ body {
   cursor: pointer;
   font-size: 15px;
   transition: all .3s ease;
+  text-decoration: none;
 }
 
 .btn-info:hover {
@@ -802,6 +838,29 @@ textarea.input-adm:focus {
 .biew-desc-adm .info-desc{
   padding: 10px 5px;
 }
+
+.info-ticket {
+  border: 1px solid;
+  border-radius: 10px;
+  padding: 5px;
+}
+
+.input-option{
+  border-radius: 5px;
+  border: 1px solid;
+  text-align: center;
+}
+
+.input-option:hover{
+  background-color: #bdbdbd;
+  cursor: pointer;
+  transition: all 0.8s;
+}
+
+.row-btn-ticket button{
+  width: 120px;
+}
+
 
 
 

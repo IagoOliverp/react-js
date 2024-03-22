@@ -36,7 +36,6 @@ export const Users = () => {
             .then((response) => {
                 setData(response.data.users)
                 setLastPage(response.data.lastPage);
-                console.log(response)
             }).catch((err) => {
                 if (err.response) {
                     setStatus({
@@ -136,17 +135,16 @@ export const Users = () => {
                             <td className="list-body-content">{user.id}</td>
                             <td className="list-body-content">{user.name}</td>
                             <td className="list-body-content table-sm-none">{user.email}</td>
-        <td className="list-body-content">
-            <div className="dropdown-action">
-                <button onClick={() => {closeDropdownAction(); actionDropdown(user.id)}} className="dropdown-btn-action">Ações</button>
-                <div id={"actionDropdown" + user.id} className="dropdown-action-item">
-                    <Link to={"/view-user/" + user.id}>Visualizar</Link>
-                    <Link to={"/edit-user/" + user.id}>Editar</Link>
-                    <Link to={"#"} onClick={() => deleteUser(user.id)}>Apagar</Link><br />
-                </div>
-            </div>
-        </td>
-                            
+                            <td className="list-body-content">
+                                <div className="dropdown-action">
+                                    <button onClick={() => {closeDropdownAction(); actionDropdown(user.id)}} className="dropdown-btn-action">Ações</button>
+                                    <div id={"actionDropdown" + user.id} className="dropdown-action-item">
+                                        <Link to={"/view-user/" + user.id}>Visualizar</Link>
+                                        <Link to={"/edit-user/" + user.id}>Editar</Link>
+                                        <Link to={"#"} onClick={() => deleteUser(user.id)}>Apagar</Link><br />
+                                    </div>
+                                </div>
+                            </td>
                             <hr />
                         </tr>
                     ))}
